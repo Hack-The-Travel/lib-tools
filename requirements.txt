@@ -1,2 +1,5 @@
 lxml==4.0.0
+pytz==2017.3
+shell==1.0.1
 simplejson==3.11.1
+virtualenv==15.0.3
