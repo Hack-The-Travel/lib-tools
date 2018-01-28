@@ -33,10 +33,23 @@ def extra_time(y_factor):
     return day_duraction*y_factor - day_duraction
 
 
+def kmh_to_ms(v_kmh):
+    """Converts km/h to m/s."""
+    return Decimal(v_kmh)*Decimal(1000.0/60.0/60.0)
+
+
 if __name__ == "__main__":
+    AIRPLANES_CRUISE_SPEED = {  # kilometres per hour
+        'A318': 828,
+        'A319': 828,
+        'A320': 840,
+        'A330': 871,
+        'B738': 838,
+    }
     nano = Decimal(10**9)
-    print "A318: {0:0.2f} nanoseconds".format(extra_time(lorentz_factor(230))*nano)
-    print "A319: {0:0.2f} nanoseconds".format(extra_time(lorentz_factor(230))*nano)
-    print "A320: {0:0.2f} nanoseconds".format(extra_time(lorentz_factor(233.333))*nano)
-    print "A320: {0:0.2f} nanoseconds".format(extra_time(lorentz_factor(241.944))*nano)
-    print "B738: {0:0.2f} nanoseconds".format(extra_time(lorentz_factor(232.778))*nano)
+    for airplane in AIRPLANES_CRUISE_SPEED:
+        airplane_speed = kmh_to_ms(AIRPLANES_CRUISE_SPEED[airplane])
+        print '{airplane}: {time:0.2f} nanoseconds'.format(
+            airplane=airplane,
+            time=extra_time(lorentz_factor(airplane_speed))*nano
+        )
